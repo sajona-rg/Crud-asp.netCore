@@ -1,13 +1,13 @@
-﻿@model IEnumerable<CrudNet8MVC.Models.Contact>
+﻿@model IEnumerable<CrudNet8MVC.Models.Libro>
 @{
-    ViewData["Title"] = "Lista de contacto";
+    ViewData["Title"] = "Lista de libros";
 }
 
-<h1 class = "text-center">Contacto con .net8(.NET Core MVC)</h1>
-<div class = "row">
+<h1 class="text-center">Sistema de Gestión de Libros</h1>
+<div class="row">
     <div class="offset-9  col-3 mb-3">
-        <a asp asp-action="crear" asp-controller ="inicio" class="btn btn-secondary d-block mx-auto btn-lg">
-            <i class = "fa fa-plus" aria-hidden="true"></i> Nuevo Usuario
+        <a asp-action="Crear" asp-controller="Inicio" class="btn btn-secondary d-block mx-auto btn-lg">
+            <i class="fa fa-plus" aria-hidden="true"></i> Nuevo Libro
         </a>
     </div>
 </div>
@@ -16,26 +16,27 @@
     <div class="offset-12">
         <div class="card border">
             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                <h3 class="text-white"><strong>Lista de Usuarios</strong></h3>
+                <h3 class="text-white"><strong>Lista de Libros</strong></h3>
                 <form asp-action="Index" method="get" class="d-flex">
-                    <input type="text" name="filtro" class="form-control me-2" placeholder="Buscar por ID o nombre..." value="@ViewData["FiltroActual"]" />
+                    <input type="text" name="filtro" class="form-control me-2" placeholder="Buscar por ID, título, autor o ISBN..." value="@ViewData["FiltroActual"]" />
                     <button type="submit" class="btn btn-primary ">Buscar</button>
                 </form>
             </div>
             <div class=" card-body">
                 <div class="table-responsive">
-                    @if(Model.Count() > 0)
+                    @if (Model.Count() > 0)
                     {
-                        <table class="table table-bordered" id="tblUsuarios" cellspacing="0">
+                        <table class="table table-bordered" id="tblLibros" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>@Html.DisplayNameFor(m => m.Id)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.HomePhone)</th>
-                                    <th>@Html.DisplayNameFor(m => m.CellPhone)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Email)</th>
-                                    <th>@Html.DisplayNameFor(m => m.FechaCreacion)</th>
-                                    <th>@Html.DisplayNameFor(m => m.FechaModificacion)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Isbn)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Titulo)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Autor)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Editorial)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Genero)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Anio)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Cantidad)</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -44,12 +45,13 @@
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(m => item.Id)</td>
-                                        <td>@Html.DisplayFor(m => item.Name)</td>
-                                        <td>@Html.DisplayFor(m => item.HomePhone)</td>
-                                        <td>@Html.DisplayFor(m => item.CellPhone)</td>
-                                        <td>@Html.DisplayFor(m => item.Email)</td>
-                                        <td>@Html.DisplayFor(m => item.FechaCreacion)</td>
-                                        <td>@Html.DisplayFor(m => item.FechaModificacion)</td>
+                                        <td>@Html.DisplayFor(m => item.Isbn)</td>
+                                        <td>@Html.DisplayFor(m => item.Titulo)</td>
+                                        <td>@Html.DisplayFor(m => item.Autor)</td>
+                                        <td>@Html.DisplayFor(m => item.Editorial)</td>
+                                        <td>@Html.DisplayFor(m => item.Genero)</td>
+                                        <td>@Html.DisplayFor(m => item.Anio)</td>
+                                        <td>@Html.DisplayFor(m => item.Cantidad)</td>
                                         <td>
                                             <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.Id"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             <a class="btn btn-secondary" asp-action="Detalle" asp-route-id="@item.Id"><i class="fa fa-info-circle" aria-hidden="true"></i> Detalle</a>
@@ -57,8 +59,10 @@
                                         </td>
                                     </tr>
                                 }
+                            </tbody>
                         </table>
-                    }else
+                    }
+                    else
                     {
                         <p>No hay registros</p>
                     }

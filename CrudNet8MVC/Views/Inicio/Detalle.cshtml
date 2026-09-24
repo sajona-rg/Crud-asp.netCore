@@ -1,24 +1,26 @@
-﻿@model CrudNet8MVC.Models.Contact
+﻿@model CrudNet8MVC.Models.Libro
 @{
-    ViewData["Title"] = "Detalle contacto";
+    ViewData["Title"] = "Detalle libro";
 }
 
-<h1 class="text-center">Contacto con .net8(.NET Core MVC)</h1>
+<h1 class="text-center">Libro con .net8(.NET Core MVC)</h1>
 
 <div class="row">
     <div class="offset-12">
         <div class="card border">
             <div class="card-header bg-dark">
-                <h3 class="text-white"><strong>Detalle Usuario</strong></h3>
+                <h3 class="text-white"><strong>Detalle Libro</strong></h3>
             </div>
             <div class=" card-body">
 
                 <ul class="list-group">
-                    <list class="list-group-item"><strong>Nombre:</strong>@Html.DisplayFor(m => m.Name)</list>
-                    <list class="list-group-item"><strong>Celular:</strong>@Html.DisplayFor(m => m.CellPhone)</list>
-                    <list class="list-group-item"><strong>Telefono:</strong>@Html.DisplayFor(m => m.HomePhone)</list>
-                    <list class="list-group-item"><strong>Email:</strong>@Html.DisplayFor(m => m.Email)</list>
-                    <list class="list-group-item"><strong>Fecha:</strong>@Html.DisplayFor(m => m.FechaCreacion)</list>
+                    <list class="list-group-item"><strong>ISBN:</strong>@Html.DisplayFor(m => m.Isbn)</list>
+                    <list class="list-group-item"><strong>Título:</strong>@Html.DisplayFor(m => m.Titulo)</list>
+                    <list class="list-group-item"><strong>Autor:</strong>@Html.DisplayFor(m => m.Autor)</list>
+                    <list class="list-group-item"><strong>Editorial:</strong>@Html.DisplayFor(m => m.Editorial)</list>
+                    <list class="list-group-item"><strong>Género:</strong>@Html.DisplayFor(m => m.Genero)</list>
+                    <list class="list-group-item"><strong>Año:</strong>@Html.DisplayFor(m => m.Anio)</list>
+                    <list class="list-group-item"><strong>Cantidad:</strong>@Html.DisplayFor(m => m.Cantidad)</list>
                 </ul>
 
                 <a asp-controller="Inicio" asp-action="Index">Volver</a>
@@ -26,4 +28,3 @@
         </div>
     </div>
 </div>
-

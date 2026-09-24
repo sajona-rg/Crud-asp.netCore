@@ -1,52 +1,70 @@
-﻿@model CrudNet8MVC.Models.Contact
+﻿@model CrudNet8MVC.Models.Libro
 @{
-    ViewData["Title"] = "Editar contacto";
+    ViewData["Title"] = "Editar libro";
 }
 
-<h1 class="text-center">Contacto con .net8(.NET Core MVC)</h1>
+<h1 class="text-center">Libro con .net8(.NET Core MVC)</h1>
 
 <div class="row">
     <div class="offset-12">
         <div class="card border">
             <div class="card-header bg-dark">
-                <h3 class="text-white"><strong>Editar Usuario</strong></h3>
+                <h3 class="text-white"><strong>Editar Libro</strong></h3>
             </div>
             <div class=" card-body">
 
                 <form asp-action="Editar" method="post">
 
-                    @* ID DEL USUARIO COMO CAMPO OCULTO *@
+                    @* ID DEL LIBRO COMO CAMPO OCULTO *@
 
                     <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="FechaCreacion" />
 
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
-                        <input asp-for="Name" class="form-control" placeholder="Add Name" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <label asp-for="Isbn" class="control-label"></label>
+                        <input asp-for="Isbn" class="form-control" placeholder="Agregar ISBN" maxlength="13" />
+                        <span asp-validation-for="Isbn" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="CellPhone" class="control-label"></label>
-                        <input asp-for="CellPhone" class="form-control" placeholder="Add Cellphone" />
-                        <span asp-validation-for="CellPhone" class="text-danger"></span>
+                        <label asp-for="Titulo" class="control-label"></label>
+                        <input asp-for="Titulo" class="form-control" placeholder="Agregar título" maxlength="200" />
+                        <span asp-validation-for="Titulo" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="HomePhone" class="control-label"></label>
-                        <input asp-for="HomePhone" class="form-control" placeholder="Add Homephone" />
-                        <span asp-validation-for="HomePhone" class="text-danger"></span>
+                        <label asp-for="Autor" class="control-label"></label>
+                        <input asp-for="Autor" class="form-control" placeholder="Agregar autor" maxlength="100" />
+                        <span asp-validation-for="Autor" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" placeholder="Add Email" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <label asp-for="Editorial" class="control-label"></label>
+                        <input asp-for="Editorial" class="form-control" placeholder="Agregar editorial" maxlength="100" />
+                        <span asp-validation-for="Editorial" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Genero" class="control-label"></label>
+                        <input asp-for="Genero" class="form-control" placeholder="Agregar género" maxlength="50" />
+                        <span asp-validation-for="Genero" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Anio" class="control-label"></label>
+                        <input asp-for="Anio" class="form-control" placeholder="Agregar año" />
+                        <span asp-validation-for="Anio" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Cantidad" class="control-label"></label>
+                        <input asp-for="Cantidad" class="form-control" placeholder="Agregar cantidad" />
+                        <span asp-validation-for="Cantidad" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary d-block mx-auto"><i class="fa-solid fa-user"></i> Editar Usuario</button>
+                        <button type="submit" class="btn btn-primary d-block mx-auto"><i class="fa-solid fa-book"></i> Editar Libro</button>
                     </div>
                 </form>
 

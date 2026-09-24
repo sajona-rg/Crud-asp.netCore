@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
 using CrudNet8MVC.Data;
 using CrudNet8MVC.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,31 +8,34 @@ namespace CrudNet8MVC.Controllers
 {
     public class InicioController : Controller
     {
-        private readonly DataContext _contexto; // Inyeccion de dependencias (dependencia en DataContext (Modelos))
+        private readonly DataContext _contexto; // Inyección de dependencias (dependencia en DataContext / Modelos)
 
-        public InicioController(DataContext contexto) // Constructor de la clase InicioController donde pasamos la dependencia Modelos.
+        public InicioController(DataContext contexto) // Constructor: recibimos la dependencia del contexto
         {
-            _contexto = contexto;   
+            _contexto = contexto;
         }
 
+        // ---------- LISTAR + BUSCAR ----------
         public async Task<IActionResult> Index(string filtro)
         {
-            var contactos = from c in _contexto.Contact // es lo mismo que contactos = _contexto.contact solo que en linq y recorriendo c por todos los registros
-                            select c;
+            var libros = from l in _contexto.Libro // recorre todos los registros de Libro con LINQ
+                         select l;
 
             if (!string.IsNullOrEmpty(filtro))
             {
-                contactos = contactos.Where(c =>
-                    c.Id.ToString().Contains(filtro) ||
-                    c.Name.Contains(filtro));
+                libros = libros.Where(l =>
+                    l.Id.ToString().Contains(filtro) ||
+                    l.Titulo.Contains(filtro) ||
+                    l.Autor.Contains(filtro) ||
+                    l.Isbn.Contains(filtro));
             }
 
             ViewData["FiltroActual"] = filtro;
 
-            return View(await contactos.ToListAsync());
+            return View(await libros.ToListAsync());
         }
 
-
+        // ---------- CREAR ----------
         [HttpGet]
         public IActionResult Crear()
         {
@@ -43,109 +44,105 @@ namespace CrudNet8MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crear(Contact contacto)
+        public async Task<IActionResult> Crear(Libro libro)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                //Agrego la fecha de registro
-                contacto.FechaCreacion = DateTime.Now;
-
-                _contexto.Add(contacto);
+                _contexto.Add(libro);
                 await _contexto.SaveChangesAsync();
-                return RedirectToAction("Index"); // O, RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
 
-            return View();
+            return View(libro); // devolvemos el modelo para no perder lo digitado ni las validaciones
         }
 
+        // ---------- EDITAR ----------
         [HttpGet]
-        public IActionResult Editar(int? id)
+        public async Task<IActionResult> Editar(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var contacto = _contexto.Contact.Find(id);
+            var libro = await _contexto.Libro.FindAsync(id);
 
-            if (contacto == null)
+            if (libro == null)
             {
                 return NotFound();
-
             }
-            return View(contacto);
+
+            return View(libro);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(Contact contacto)
+        public async Task<IActionResult> Editar(Libro libro)
         {
             if (ModelState.IsValid)
             {
-                contacto.FechaModificacion = DateTime.Now;
-
-                _contexto.Update(contacto);
+                _contexto.Update(libro);
                 await _contexto.SaveChangesAsync();
-                return RedirectToAction("Index"); // O, RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
 
-            return View();
+            return View(libro);
         }
 
+        // ---------- DETALLE ----------
         [HttpGet]
-        public IActionResult Detalle(int? id)
+        public async Task<IActionResult> Detalle(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var contacto = _contexto.Contact.Find(id);
+            var libro = await _contexto.Libro.FindAsync(id);
 
-            if (contacto == null)
+            if (libro == null)
             {
                 return NotFound();
-
             }
 
-            return View(contacto);
+            return View(libro);
         }
 
+        // ---------- BORRAR ----------
         [HttpGet]
-        public IActionResult Borrar(int? id)
+        public async Task<IActionResult> Borrar(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var contacto = _contexto.Contact.Find(id);
+            var libro = await _contexto.Libro.FindAsync(id);
 
-            if (contacto == null)
+            if (libro == null)
             {
                 return NotFound();
-
             }
 
-            return View(contacto);
+            return View(libro);
         }
 
         [HttpPost, ActionName("Borrar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BorrarContacto(int? id)
+        public async Task<IActionResult> BorrarLibro(int? id)
         {
-            var contacto = await _contexto.Contact.FindAsync(id);
-            if (contacto == null)
+            var libro = await _contexto.Libro.FindAsync(id);
+            if (libro == null)
             {
-                return View();
+                return NotFound();
             }
 
-            //Borrado
-            _contexto.Contact.Remove(contacto);
+            _contexto.Libro.Remove(libro);
             await _contexto.SaveChangesAsync();
-            return RedirectToAction(nameof(Index)); 
+            return RedirectToAction(nameof(Index));
         }
 
+        // ---------- OTROS ----------
         public IActionResult Privacy()
         {
             return View();

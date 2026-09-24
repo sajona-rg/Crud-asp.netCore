@@ -1,0 +1,22 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+# Rider
+.idea/
+ScaffoldingReadMe.txt
+*.nupkg
+.vsconfig
+_ReSharper*
+*.DotSettings.user
+publish/
+Thumbs.db
+[Bb]uild/
+*.log
+*.dbmdl
+node_modules/
+wwwroot/lib/
